@@ -1,5 +1,6 @@
-*.bak
+*.bak*
 *.log
 *.fisch
-*.uvopt
+*.uvopt*
+*.uvgui*
 *.htm
