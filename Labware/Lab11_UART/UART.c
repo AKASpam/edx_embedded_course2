@@ -123,7 +123,13 @@ char character;
 // Output: none
 void UART_OutString(unsigned char buffer[]){
 // as part of Lab 11 implement this function
-
+//first (1) modification out string implementation
+unsigned int	i=0;
+	while (buffer[i]){
+		//UART0_DR_R=buffer[i]; //is this writing uart? no this doesnt work
+		UART_OutChar(buffer[i]);
+		i++	;
+}
 }
 
 unsigned char String[10];
