@@ -146,17 +146,15 @@ unsigned char String[10];
 //10000 to "**** "  any value larger than 9999 converted to "**** "
 void UART_ConvertUDec(unsigned long n){
 // as part of Lab 11 implement this function
-  unsigned int	i=0; //counter variable, start with 0
-	unsigned int cnt=0; //number count
-	unsigned int j=0; //intermediate n value
+  unsigned int	i=0; //counter variable, start with 0 //not used
+	//unsigned int cnt=0; //number count both not used
+	//unsigned int j=0; //intermediate n value
 	
 	//idea of first clear String with space:
-	String[0]=' ';
-	String[1]=' ';
-	String[2]=' ';
-	String[3]=' ';	
-	String[4]=' ';
-	//end of clearing string with space	
+	for(i=0;i<10;i++){
+	String[i]=' ';
+	}
+		//end of clearing string with space	
 	if (n>9999){
 	String[0]='*';
 	String[1]='*';
@@ -214,7 +212,31 @@ void UART_OutUDec(unsigned long n){
 //10000 to "*.*** cm"  any value larger than 9999 converted to "*.*** cm"
 void UART_ConvertDistance(unsigned long n){
 // as part of Lab 11 implement this function
-  
+	
+  if (n>9999){
+	String[0]='*';
+	String[1]='.';
+	String[2]='*';
+	String[3]='*';	
+	String[4]='*';
+	String[5]=' ';
+	String[6]='c';	
+	String[7]='m';
+	String[8]=0;
+	}
+	else if (n < 10){ // *** 0 to 9 case ***
+		String[0]='0';
+		String[1]='.';
+		String[2]='0';
+		String[3]='0';	
+		String[4]=0x30+n;     // ones digit UART_OutChar(0x30+n);
+		String[5]=' ';
+		String[6]='c';	
+		String[7]='m';
+		String[8]=0;
+		
+	
+	}
 }
 
 //-----------------------UART_OutDistance-----------------------

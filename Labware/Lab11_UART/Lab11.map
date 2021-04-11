@@ -13,6 +13,7 @@ Section Cross References
     startup.o(.text) refers (Special) to heapauxi.o(.text) for __use_two_region_memory
     startup.o(.text) refers to startup.o(HEAP) for HeapMem
     startup.o(.text) refers to startup.o(STACK) for StackMem
+    uart.o(i.UART_ConvertDistance) refers to uart.o(.bss) for String
     uart.o(i.UART_ConvertUDec) refers to uart.o(.bss) for String
     uart.o(i.UART_InUDec) refers to uart.o(i.UART_InChar) for UART_InChar
     uart.o(i.UART_InUDec) refers to uart.o(i.UART_OutChar) for UART_OutChar
@@ -285,16 +286,16 @@ Image Symbol Table
     i.TExaS_Init                             0x0000054c   Section        0  texas.o(i.TExaS_Init)
     i.Timer5A_Handler                        0x00000654   Section        0  texas.o(i.Timer5A_Handler)
     i.UART_ConvertDistance                   0x00000874   Section        0  uart.o(i.UART_ConvertDistance)
-    i.UART_ConvertUDec                       0x00000878   Section        0  uart.o(i.UART_ConvertUDec)
-    i.UART_InChar                            0x00000970   Section        0  uart.o(i.UART_InChar)
-    i.UART_InUDec                            0x00000988   Section        0  uart.o(i.UART_InUDec)
-    i.UART_Init                              0x000009d4   Section        0  uart.o(i.UART_Init)
-    i.UART_OutChar                           0x00000a6c   Section        0  uart.o(i.UART_OutChar)
-    i.UART_OutDistance                       0x00000a84   Section        0  uart.o(i.UART_OutDistance)
-    i.UART_OutString                         0x00000a9c   Section        0  uart.o(i.UART_OutString)
-    i.UART_OutUDec                           0x00000ab4   Section        0  uart.o(i.UART_OutUDec)
-    i.main                                   0x00000acc   Section        0  main.o(i.main)
-    .constdata                               0x00000b50   Section      664  texas.o(.constdata)
+    i.UART_ConvertUDec                       0x000008d0   Section        0  uart.o(i.UART_ConvertUDec)
+    i.UART_InChar                            0x000009c8   Section        0  uart.o(i.UART_InChar)
+    i.UART_InUDec                            0x000009e0   Section        0  uart.o(i.UART_InUDec)
+    i.UART_Init                              0x00000a2c   Section        0  uart.o(i.UART_Init)
+    i.UART_OutChar                           0x00000ac4   Section        0  uart.o(i.UART_OutChar)
+    i.UART_OutDistance                       0x00000adc   Section        0  uart.o(i.UART_OutDistance)
+    i.UART_OutString                         0x00000af4   Section        0  uart.o(i.UART_OutString)
+    i.UART_OutUDec                           0x00000b0c   Section        0  uart.o(i.UART_OutUDec)
+    i.main                                   0x00000b24   Section        0  main.o(i.main)
+    .constdata                               0x00000ba8   Section      664  texas.o(.constdata)
     .data                                    0x20000000   Section       44  texas.o(.data)
     RealGrade                                0x20000004   Data           4  texas.o(.data)
     .bss                                     0x2000002c   Section       10  uart.o(.bss)
@@ -533,28 +534,28 @@ Image Symbol Table
     SetCourse                                0x00000535   Thumb Code    20  texas.o(i.SetCourse)
     TExaS_Init                               0x0000054d   Thumb Code   172  texas.o(i.TExaS_Init)
     Timer5A_Handler                          0x00000655   Thumb Code   496  texas.o(i.Timer5A_Handler)
-    UART_ConvertDistance                     0x00000875   Thumb Code     2  uart.o(i.UART_ConvertDistance)
-    UART_ConvertUDec                         0x00000879   Thumb Code   244  uart.o(i.UART_ConvertUDec)
-    UART_InChar                              0x00000971   Thumb Code    20  uart.o(i.UART_InChar)
-    UART_InUDec                              0x00000989   Thumb Code    76  uart.o(i.UART_InUDec)
-    UART_Init                                0x000009d5   Thumb Code   126  uart.o(i.UART_Init)
-    UART_OutChar                             0x00000a6d   Thumb Code    18  uart.o(i.UART_OutChar)
-    UART_OutDistance                         0x00000a85   Thumb Code    18  uart.o(i.UART_OutDistance)
-    UART_OutString                           0x00000a9d   Thumb Code    24  uart.o(i.UART_OutString)
-    UART_OutUDec                             0x00000ab5   Thumb Code    18  uart.o(i.UART_OutUDec)
-    main                                     0x00000acd   Thumb Code    58  main.o(i.main)
-    Port                                     0x00000b50   Data          24  texas.o(.constdata)
-    BlankMsg                                 0x00000b68   Data          40  texas.o(.constdata)
-    InitializedMsg                           0x00000b90   Data          40  texas.o(.constdata)
-    IntroMsg                                 0x00000bb8   Data          40  texas.o(.constdata)
-    DoneMsg                                  0x00000be0   Data          40  texas.o(.constdata)
-    TestMsg                                  0x00000c08   Data          40  texas.o(.constdata)
-    LabTest                                  0x00000c30   Data         368  texas.o(.constdata)
-    Key                                      0x00000da0   Data           8  texas.o(.constdata)
-    Scramble                                 0x00000da8   Data          32  texas.o(.constdata)
-    DeScramble                               0x00000dc8   Data          32  texas.o(.constdata)
-    Region$$Table$$Base                      0x00000de8   Number         0  anon$$obj.o(Region$$Table)
-    Region$$Table$$Limit                     0x00000e08   Number         0  anon$$obj.o(Region$$Table)
+    UART_ConvertDistance                     0x00000875   Thumb Code    88  uart.o(i.UART_ConvertDistance)
+    UART_ConvertUDec                         0x000008d1   Thumb Code   242  uart.o(i.UART_ConvertUDec)
+    UART_InChar                              0x000009c9   Thumb Code    20  uart.o(i.UART_InChar)
+    UART_InUDec                              0x000009e1   Thumb Code    76  uart.o(i.UART_InUDec)
+    UART_Init                                0x00000a2d   Thumb Code   126  uart.o(i.UART_Init)
+    UART_OutChar                             0x00000ac5   Thumb Code    18  uart.o(i.UART_OutChar)
+    UART_OutDistance                         0x00000add   Thumb Code    18  uart.o(i.UART_OutDistance)
+    UART_OutString                           0x00000af5   Thumb Code    24  uart.o(i.UART_OutString)
+    UART_OutUDec                             0x00000b0d   Thumb Code    18  uart.o(i.UART_OutUDec)
+    main                                     0x00000b25   Thumb Code    58  main.o(i.main)
+    Port                                     0x00000ba8   Data          24  texas.o(.constdata)
+    BlankMsg                                 0x00000bc0   Data          40  texas.o(.constdata)
+    InitializedMsg                           0x00000be8   Data          40  texas.o(.constdata)
+    IntroMsg                                 0x00000c10   Data          40  texas.o(.constdata)
+    DoneMsg                                  0x00000c38   Data          40  texas.o(.constdata)
+    TestMsg                                  0x00000c60   Data          40  texas.o(.constdata)
+    LabTest                                  0x00000c88   Data         368  texas.o(.constdata)
+    Key                                      0x00000df8   Data           8  texas.o(.constdata)
+    Scramble                                 0x00000e00   Data          32  texas.o(.constdata)
+    DeScramble                               0x00000e20   Data          32  texas.o(.constdata)
+    Region$$Table$$Base                      0x00000e40   Number         0  anon$$obj.o(Region$$Table)
+    Region$$Table$$Limit                     0x00000e60   Number         0  anon$$obj.o(Region$$Table)
     TExaS_Period                             0x20000000   Data           4  texas.o(.data)
     TExaS_Ports                              0x20000008   Data           8  texas.o(.data)
     TExaS_Meter                              0x20000010   Data           4  texas.o(.data)
@@ -581,9 +582,9 @@ Memory Map of the image
 
   Image Entry point : 0x0000026d
 
-  Load Region LR_1 (Base: 0x00000000, Size: 0x00000e34, Max: 0xffffffff, ABSOLUTE)
+  Load Region LR_1 (Base: 0x00000000, Size: 0x00000e8c, Max: 0xffffffff, ABSOLUTE)
 
-    Execution Region ER_RO (Base: 0x00000000, Size: 0x00000e08, Max: 0xffffffff, ABSOLUTE)
+    Execution Region ER_RO (Base: 0x00000000, Size: 0x00000e60, Max: 0xffffffff, ABSOLUTE)
 
     Base Addr    Size         Type   Attr      Idx    E Section Name        Object
 
@@ -649,19 +650,18 @@ Memory Map of the image
     0x00000534   0x00000018   Code   RO          107    i.SetCourse         texas.o
     0x0000054c   0x00000108   Code   RO          110    i.TExaS_Init        texas.o
     0x00000654   0x00000220   Code   RO          112    i.Timer5A_Handler   texas.o
-    0x00000874   0x00000002   Code   RO           12    i.UART_ConvertDistance  uart.o
-    0x00000876   0x00000002   PAD
-    0x00000878   0x000000f8   Code   RO           13    i.UART_ConvertUDec  uart.o
-    0x00000970   0x00000018   Code   RO           14    i.UART_InChar       uart.o
-    0x00000988   0x0000004c   Code   RO           16    i.UART_InUDec       uart.o
-    0x000009d4   0x00000098   Code   RO           17    i.UART_Init         uart.o
-    0x00000a6c   0x00000018   Code   RO           18    i.UART_OutChar      uart.o
-    0x00000a84   0x00000018   Code   RO           19    i.UART_OutDistance  uart.o
-    0x00000a9c   0x00000018   Code   RO           20    i.UART_OutString    uart.o
-    0x00000ab4   0x00000018   Code   RO           21    i.UART_OutUDec      uart.o
-    0x00000acc   0x00000084   Code   RO           88    i.main              main.o
-    0x00000b50   0x00000298   Data   RO          115    .constdata          texas.o
-    0x00000de8   0x00000020   Data   RO          351    Region$$Table       anon$$obj.o
+    0x00000874   0x0000005c   Code   RO           12    i.UART_ConvertDistance  uart.o
+    0x000008d0   0x000000f8   Code   RO           13    i.UART_ConvertUDec  uart.o
+    0x000009c8   0x00000018   Code   RO           14    i.UART_InChar       uart.o
+    0x000009e0   0x0000004c   Code   RO           16    i.UART_InUDec       uart.o
+    0x00000a2c   0x00000098   Code   RO           17    i.UART_Init         uart.o
+    0x00000ac4   0x00000018   Code   RO           18    i.UART_OutChar      uart.o
+    0x00000adc   0x00000018   Code   RO           19    i.UART_OutDistance  uart.o
+    0x00000af4   0x00000018   Code   RO           20    i.UART_OutString    uart.o
+    0x00000b0c   0x00000018   Code   RO           21    i.UART_OutUDec      uart.o
+    0x00000b24   0x00000084   Code   RO           88    i.main              main.o
+    0x00000ba8   0x00000298   Data   RO          115    .constdata          texas.o
+    0x00000e40   0x00000020   Data   RO          351    Region$$Table       anon$$obj.o
 
 
     Execution Region ER_RW (Base: 0x20000000, Size: 0x0000002c, Max: 0xffffffff, ABSOLUTE)
@@ -694,12 +694,12 @@ Image component sizes
        132         74          0          0          0        439   main.o
        692        632          0          0       1024        892   startup.o
       1200        200        664         44        628      12603   texas.o
-       598         52          0          0         10       5929   uart.o
+       688         58          0          0         10       5933   uart.o
 
     ----------------------------------------------------------------------
-      2624        958        696         44       1664      19863   Object Totals
+      2712        964        696         44       1664      19867   Object Totals
          0          0         32          0          0          0   (incl. Generated)
-         2          0          0          0          2          0   (incl. Padding)
+         0          0          0          0          2          0   (incl. Padding)
 
     ----------------------------------------------------------------------
 
@@ -746,15 +746,15 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-      2896        974        696         44       1764      19451   Grand Totals
-      2896        974        696         44       1764      19451   ELF Image Totals
-      2896        974        696         44          0          0   ROM Totals
+      2984        980        696         44       1764      19455   Grand Totals
+      2984        980        696         44       1764      19455   ELF Image Totals
+      2984        980        696         44          0          0   ROM Totals
 
 ==============================================================================
 
-    Total RO  Size (Code + RO Data)                 3592 (   3.51kB)
+    Total RO  Size (Code + RO Data)                 3680 (   3.59kB)
     Total RW  Size (RW Data + ZI Data)              1808 (   1.77kB)
-    Total ROM Size (Code + RO Data + RW Data)       3636 (   3.55kB)
+    Total ROM Size (Code + RO Data + RW Data)       3724 (   3.64kB)
 
 ==============================================================================
 
