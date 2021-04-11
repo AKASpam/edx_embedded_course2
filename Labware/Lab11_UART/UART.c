@@ -129,7 +129,7 @@ unsigned int	i=0;
 		//UART0_DR_R=buffer[i]; //is this writing uart? no this doesnt work
 		UART_OutChar(buffer[i]);
 		i++	;
-}
+} //yes it works -next function
 }
 
 unsigned char String[10];
@@ -146,7 +146,37 @@ unsigned char String[10];
 //10000 to "**** "  any value larger than 9999 converted to "**** "
 void UART_ConvertUDec(unsigned long n){
 // as part of Lab 11 implement this function
-  
+  unsigned int	i=0; //counter variable, start with 0
+	unsigned int cnt=0; //number count
+	unsigned int j=0; intermediate n value
+	
+	//idea of first clear String with space:
+	String[0]=' ';
+	String[1]=' ';
+	String[2]=' ';
+	String[3]=' ';	
+	String[4]=' ';
+	//end of clearing string with space	
+	if (n>9999){
+	String[0]='*';
+	String[1]='*';
+	String[2]='*';
+	String[3]='*';	
+	String[4]=' ';
+	}
+	else{
+	
+	String[0] = n/1000 + 0x30; // hundreds digit
+  n = n%1000;              // n is now between 0 and 99
+	String[1] = n/100 + 0x30; // hundreds digit
+  n = n%100;              // n is now between 0 and 99
+  String[2] = n/10 + 0x30;  // tens digit
+  n = n%10;               // n is now between 0 and 9
+  String[3] = n + 0x30;     // ones digit
+  String[4] = ' ' ;            // space last digit	
+	}
+	
+	
 }
 
 //-----------------------UART_OutUDec-----------------------
@@ -158,7 +188,7 @@ void UART_OutUDec(unsigned long n){
   UART_ConvertUDec(n);     // convert using your function
   UART_OutString(String);  // output using your function
 }
-
+ 
 //-----------------------UART_ConvertDistance-----------------------
 // Converts a 32-bit distance into an ASCII string
 // Input: 32-bit number to be converted (resolution 0.001cm)
