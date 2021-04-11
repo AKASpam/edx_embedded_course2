@@ -250,9 +250,47 @@ void UART_ConvertDistance(unsigned long n){
 		String[6]='c';	
 		String[7]='m';
 		String[8]=0;
-		
-	
 	}
+	else if (n < 100){ // 10-99 case
+		String[0]='0';
+		String[1]='.';
+		String[2]='0';
+		String[3]=(n/10)+0x30;
+		n=n%10;	
+		String[4]=0x30+n;     // ones digit UART_OutChar(0x30+n);
+		String[5]=' ';
+		String[6]='c';	
+		String[7]='m';
+		String[8]=0;	
+		}
+				
+	else if (n < 1000){ // 100-999 case
+		String[0]='0';
+		String[1]='.';
+		String[2]=(n/100)+0x30;
+		n=n%100;	
+		String[3]=(n/10)+0x30;
+		n=n%10;	
+		String[4]=0x30+n;     // ones digit UART_OutChar(0x30+n);
+		String[5]=' ';
+		String[6]='c';	
+		String[7]='m';
+		String[8]=0;	
+		}
+	else if (n < 10000){ // 1000-9999 case
+		String[0]=(n/1000)+0x30;
+		n=n%1000;
+		String[1]='.';
+		String[2]=(n/100)+0x30;
+		n=n%100;	
+		String[3]=(n/10)+0x30;
+		n=n%10;	
+		String[4]=0x30+n;     // ones digit UART_OutChar(0x30+n);
+		String[5]=' ';
+		String[6]='c';	
+		String[7]='m';
+		String[8]=0;	
+		}
 }
 
 //-----------------------UART_OutDistance-----------------------
