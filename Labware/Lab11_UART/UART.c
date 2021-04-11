@@ -165,11 +165,19 @@ void UART_ConvertUDec(unsigned long n){
 	else if (n < 10){
 		          // *** 0 to 9 case ***
    	String[3]=0x30+n;     // ones digit UART_OutChar(0x30+n);
+		String[5]=0;
+		String[6]=0;	
+		String[7]=0;
+		String[8]=0;
 		}
 	else if(n<100){             // *** 10 to 99 case ***
  		String[2]=(n/10)+0x30;
 		n=n%10;
 		String[3]=n+0x30;			//find out why 0x30 - without doesnt work
+		String[5]=0;
+		String[6]=0;	
+		String[7]=0;
+		String[8]=0;
 		}
 	else if(n<1000){             // *** 100 to 999 case ***
  		String[1]=(n/100)+0x30;
@@ -177,6 +185,10 @@ void UART_ConvertUDec(unsigned long n){
 		String[2]=(n/10)+0x30;
 		n=n%10;
 		String[3]=n+0x30;	
+		String[5]=0;
+		String[6]=0;	
+		String[7]=0;
+		String[8]=0;
 		}	
 	else if(n<10000){             // *** 1000 to 9999 case ***
  		String[0]=(n/1000)+0x30;
@@ -186,6 +198,10 @@ void UART_ConvertUDec(unsigned long n){
 		String[2]=(n/10)+0x30;
 		n=n%10;
 		String[3]=n+0x30;	
+		String[5]=0;
+		String[6]=0;	
+		String[7]=0;
+		String[8]=0;
 		}					
 	}
 
