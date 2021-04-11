@@ -148,7 +148,7 @@ void UART_ConvertUDec(unsigned long n){
 // as part of Lab 11 implement this function
   unsigned int	i=0; //counter variable, start with 0
 	unsigned int cnt=0; //number count
-	unsigned int j=0; intermediate n value
+	unsigned int j=0; //intermediate n value
 	
 	//idea of first clear String with space:
 	String[0]=' ';
@@ -164,20 +164,32 @@ void UART_ConvertUDec(unsigned long n){
 	String[3]='*';	
 	String[4]=' ';
 	}
-	else{
-	
-	String[0] = n/1000 + 0x30; // hundreds digit
-  n = n%1000;              // n is now between 0 and 99
-	String[1] = n/100 + 0x30; // hundreds digit
-  n = n%100;              // n is now between 0 and 99
-  String[2] = n/10 + 0x30;  // tens digit
-  n = n%10;               // n is now between 0 and 9
-  String[3] = n + 0x30;     // ones digit
-  String[4] = ' ' ;            // space last digit	
+	else if (n < 10){
+		          // *** 0 to 9 case ***
+   	String[3]=0x30+n;     // ones digit UART_OutChar(0x30+n);
+		}
+	else if(n<100){             // *** 10 to 99 case ***
+ 		String[2]=(n/10)+0x30;
+		n=n%10;
+		String[3]=n+0x30;			//find out why 0x30 - without doesnt work
+		}
+	else if(n<1000){             // *** 100 to 999 case ***
+ 		String[1]=(n/100)+0x30;
+		n=n%100;
+		String[2]=(n/10)+0x30;
+		n=n%10;
+		String[3]=n+0x30;	
+		}	
+	else if(n<10000){             // *** 1000 to 9999 case ***
+ 		String[0]=(n/1000)+0x30;
+		n=n%1000;
+		String[1]=(n/100)+0x30;
+		n=n%100;
+		String[2]=(n/10)+0x30;
+		n=n%10;
+		String[3]=n+0x30;	
+		}					
 	}
-	
-	
-}
 
 //-----------------------UART_OutUDec-----------------------
 // Output a 32-bit number in unsigned decimal format
