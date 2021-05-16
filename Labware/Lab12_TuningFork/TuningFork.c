@@ -41,7 +41,7 @@
 void DisableInterrupts(void); // Disable interrupts
 void EnableInterrupts(void);  // Enable interrupts
 void WaitForInterrupt(void);  // low power mode
-
+unsigned long delay=0;
 volatile unsigned long Counts=0; 
 
 //port definitions
@@ -59,7 +59,22 @@ volatile unsigned long Counts=0;
 
 // input from PA3, output from PA2, SysTick interrupts
 void Sound_Init(void){ 
-
+//code from 12.6 - change that from PA5 to PA2
+	SYSCTL_RCGC2_R |= 0x00000001; // activate port A
+  delay = SYSCTL_RCGC2_R;
+  GPIO_PORTA_AMSEL_R &= ~0x04;      // no analog (changed from 0x20)
+  GPIO_PORTA_PCTL_R &= ~0x00F00000; // regular function
+  GPIO_PORTA_DIR_R |= 0x04;     // make PA5 out(changed from 0x20)
+  GPIO_PORTA_DR8R_R |= 0x04;    // can drive up to 8mA out(changed from 0x20)
+  GPIO_PORTA_AFSEL_R &= ~0x04;  // disable alt funct on PA5(changed from 0x20)
+  GPIO_PORTA_DEN_R |= 0x04;     // enable digital I/O on PA5(changed from 0x20)
+  NVIC_ST_CTRL_R = 0;           // disable SysTick during setup
+  NVIC_ST_RELOAD_R = 90908;     // reload value for 500us (assuming 80MHz)
+  NVIC_ST_CURRENT_R = 0;        // any write to current clears it
+  NVIC_SYS_PRI3_R = NVIC_SYS_PRI3_R&0x00FFFFFF; // priority 0               
+  NVIC_ST_CTRL_R = 0x00000007;  // enable with core clock and interrupts
+  EnableInterrupts();
+	
 }
 
 void SysTick_Init(unsigned long period){ // priority 2
@@ -93,10 +108,10 @@ int main(void){// activate grader and set system clock to 80 MHz
   GPIO_PORTA_DEN_R |= 0x0E;   // enable digital I/O on PA2 & PA3
   GPIO_PORTA_PCTL_R = (GPIO_PORTF_PCTL_R&0xFFFFF0FF)+0x00000000;
   GPIO_PORTA_AMSEL_R &= ~0x04;     // disable analog functionality on PF
-  //SysTick_Init(80000);        // initialize SysTick timer, every 1ms - changed from 16000
+  SysTick_Init(90909);        // initialize SysTick timer, every 1ms - changed from 16000; 80000 is too small
   EnableInterrupts();         // enable after everything initialized
 	
-  //GPIO_PORTA_PCTL_R &= ~0x00000F00; // 3) regular GPIO
+  
 
 	
 	
@@ -106,5 +121,7 @@ int main(void){// activate grader and set system clock to 80 MHz
     // main program is free to perform other tasks
     // do not use WaitForInterrupt() here, it may cause the TExaS to crash
 		SysTick_Handler();
+		//if(GPIO_PORTF_RIS_R&0x01){  // SW2 touch
+    //GPIO_PORTF_ICR_R = 0x01;  // acknowledge flag0
   }
 }
