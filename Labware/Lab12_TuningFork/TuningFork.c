@@ -42,7 +42,10 @@ void DisableInterrupts(void); // Disable interrupts
 void EnableInterrupts(void);  // Enable interrupts
 void WaitForInterrupt(void);  // low power mode
 unsigned long delay=0;
+unsigned long beep=0; //variable for beep
+unsigned long pa3stat=0; //new beep variable
 volatile unsigned long Counts=0; 
+
 
 //port definitions
 #define GPIO_PORTA_DATA_R       (*((volatile unsigned long *)0x400043FC))
@@ -59,21 +62,16 @@ volatile unsigned long Counts=0;
 
 // input from PA3, output from PA2, SysTick interrupts
 void Sound_Init(void){ 
-//code from 12.6 - change that from PA5 to PA2
-	SYSCTL_RCGC2_R |= 0x00000001; // activate port A
-  delay = SYSCTL_RCGC2_R;
-  GPIO_PORTA_AMSEL_R &= ~0x04;      // no analog (changed from 0x20)
-  GPIO_PORTA_PCTL_R &= ~0x00F00000; // regular function
-  GPIO_PORTA_DIR_R |= 0x04;     // make PA5 out(changed from 0x20)
-  GPIO_PORTA_DR8R_R |= 0x04;    // can drive up to 8mA out(changed from 0x20)
-  GPIO_PORTA_AFSEL_R &= ~0x04;  // disable alt funct on PA5(changed from 0x20)
-  GPIO_PORTA_DEN_R |= 0x04;     // enable digital I/O on PA5(changed from 0x20)
-  NVIC_ST_CTRL_R = 0;           // disable SysTick during setup
-  NVIC_ST_RELOAD_R = 90908;     // reload value for 500us (assuming 80MHz)
-  NVIC_ST_CURRENT_R = 0;        // any write to current clears it
-  NVIC_SYS_PRI3_R = NVIC_SYS_PRI3_R&0x00FFFFFF; // priority 0               
-  NVIC_ST_CTRL_R = 0x00000007;  // enable with core clock and interrupts
-  EnableInterrupts();
+//read pa3 button status and toogle beep
+	if(GPIO_PORTA_RIS_R&0x08){  // SW2 touch
+    GPIO_PORTA_ICR_R = 0x08;  // acknowledge flag0
+
+    beep=0;
+	}
+		else{
+		beep=1;
+		}
+	
 	
 }
 
@@ -88,8 +86,11 @@ void SysTick_Init(unsigned long period){ // priority 2
 
 // called at 880 Hz
 void SysTick_Handler(void){
+
+	if(beep==1){
 	GPIO_PORTA_DATA_R ^= 0x04;       // toggle PA2
-  Counts = Counts + 1;
+  }
+		//Counts = Counts + 1; auskommentiert - braucht es diese zeile ?
 }
 
 int main(void){// activate grader and set system clock to 80 MHz
@@ -111,17 +112,26 @@ int main(void){// activate grader and set system clock to 80 MHz
   SysTick_Init(90909);        // initialize SysTick timer, every 1ms - changed from 16000; 80000 is too small
   EnableInterrupts();         // enable after everything initialized
 	
-  
+	//switch init:
+	SYSCTL_RCGCGPIO_R |= 0x00000001; // (a) activate clockactivated  for A
+  //delay = SYSCTL_RCGCGPIO_R; - maybe not necessary 
+  //GPIO_PORTF_LOCK_R = 0x4C4F434B; // unlock GPIO Port F
+  //GPIO_PORTF_CR_R = 0x11;         // allow changes to PF4,0
+//  GPIO_PORTF_DIR_R &= ~0x11;    // (c) make PF4,0 in (built-in button)
+ // GPIO_PORTF_DEN_R |= 0x11;     //     enable digital I/O on PF4,0
+//  GPIO_PORTF_PUR_R |= 0x11;     //     enable weak pull-up on PF4,0
+  GPIO_PORTA_IS_R &= ~0x08;     // (d) PA3 is edge-sensitive
+  GPIO_PORTA_IBE_R &= ~0x08;    //     PA3 is not both edges
+  GPIO_PORTA_IEV_R &= ~0x08;    //     PA3 falling edge event
+  GPIO_PORTA_ICR_R = 0x08;      // (e) clear flags 4,0
+  GPIO_PORTA_IM_R |= 0x08;      // (f) arm interrupt on PF4,PF0
+  NVIC_PRI7_R = (NVIC_PRI7_R&0xFF00FFFF)|0x00400000; // (g) priority 2
+  NVIC_EN0_R = 0x40000000;      // (h) enable interrupt 30 in NVIC
 
-	
-	
-	
-	
+
   while(1){
     // main program is free to perform other tasks
     // do not use WaitForInterrupt() here, it may cause the TExaS to crash
-		SysTick_Handler();
-		//if(GPIO_PORTF_RIS_R&0x01){  // SW2 touch
-    //GPIO_PORTF_ICR_R = 0x01;  // acknowledge flag0
+			
   }
 }
