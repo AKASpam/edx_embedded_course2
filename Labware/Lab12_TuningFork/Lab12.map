@@ -22,6 +22,7 @@ Section Cross References
     tuningfork.o(i.main) refers to texas.o(i.TExaS_Init) for TExaS_Init
     tuningfork.o(i.main) refers to tuningfork.o(i.Sound_Init) for Sound_Init
     tuningfork.o(i.main) refers to startup.o(.text) for EnableInterrupts
+    tuningfork.o(i.main) refers to tuningfork.o(i.SysTick_Handler) for SysTick_Handler
     texas.o(i.Decrypt) refers to texas.o(.bss) for EncriptedMagicCode
     texas.o(i.Decrypt) refers to texas.o(.constdata) for DeScramble
     texas.o(i.Encrypt) refers to texas.o(i.SetCode) for SetCode
@@ -323,13 +324,13 @@ Image Symbol Table
     i.Timer5A_Handler                        0x00000bcc   Section        0  texas.o(i.Timer5A_Handler)
     i.UART_Init                              0x000011dc   Section        0  texas.o(i.UART_Init)
     i.main                                   0x00001274   Section        0  tuningfork.o(i.main)
-    x$fpl$dcmpinf                            0x00001300   Section       24  dcmpi.o(x$fpl$dcmpinf)
-    x$fpl$dfltu                              0x00001318   Section       38  dflt_clz.o(x$fpl$dfltu)
-    x$fpl$dleqf                              0x00001340   Section      120  dleqf.o(x$fpl$dleqf)
-    x$fpl$dnaninf                            0x000013b8   Section      156  dnaninf.o(x$fpl$dnaninf)
-    x$fpl$drleqf                             0x00001454   Section      108  drleqf.o(x$fpl$drleqf)
-    .constdata                               0x000014c0   Section     7304  texas.o(.constdata)
-    x$fpl$usenofp                            0x000014c0   Section        0  usenofp.o(x$fpl$usenofp)
+    x$fpl$dcmpinf                            0x0000130c   Section       24  dcmpi.o(x$fpl$dcmpinf)
+    x$fpl$dfltu                              0x00001324   Section       38  dflt_clz.o(x$fpl$dfltu)
+    x$fpl$dleqf                              0x0000134c   Section      120  dleqf.o(x$fpl$dleqf)
+    x$fpl$dnaninf                            0x000013c4   Section      156  dnaninf.o(x$fpl$dnaninf)
+    x$fpl$drleqf                             0x00001460   Section      108  drleqf.o(x$fpl$drleqf)
+    .constdata                               0x000014cc   Section     7304  texas.o(.constdata)
+    x$fpl$usenofp                            0x000014cc   Section        0  usenofp.o(x$fpl$usenofp)
     .data                                    0x20000000   Section        4  tuningfork.o(.data)
     .data                                    0x20000004   Section       76  texas.o(.data)
     previousTime                             0x20000020   Data           4  texas.o(.data)
@@ -576,36 +577,36 @@ Image Symbol Table
     Timer4A_Handler                          0x00000bad   Thumb Code    20  texas.o(i.Timer4A_Handler)
     Timer5A_Handler                          0x00000bcd   Thumb Code  1532  texas.o(i.Timer5A_Handler)
     UART_Init                                0x000011dd   Thumb Code   126  texas.o(i.UART_Init)
-    main                                     0x00001275   Thumb Code   112  tuningfork.o(i.main)
-    __fpl_dcmp_Inf                           0x00001301   Thumb Code    24  dcmpi.o(x$fpl$dcmpinf)
-    __aeabi_ui2d                             0x00001319   Thumb Code     0  dflt_clz.o(x$fpl$dfltu)
-    _dfltu                                   0x00001319   Thumb Code    38  dflt_clz.o(x$fpl$dfltu)
-    __aeabi_cdcmple                          0x00001341   Thumb Code     0  dleqf.o(x$fpl$dleqf)
-    _dcmple                                  0x00001341   Thumb Code   120  dleqf.o(x$fpl$dleqf)
-    __fpl_dcmple_InfNaN                      0x000013a3   Thumb Code     0  dleqf.o(x$fpl$dleqf)
-    __fpl_dnaninf                            0x000013b9   Thumb Code   156  dnaninf.o(x$fpl$dnaninf)
-    __aeabi_cdrcmple                         0x00001455   Thumb Code     0  drleqf.o(x$fpl$drleqf)
-    _drcmple                                 0x00001455   Thumb Code   108  drleqf.o(x$fpl$drleqf)
-    Port                                     0x000014c0   Data          24  texas.o(.constdata)
-    __I$use$fp                               0x000014c0   Number         0  usenofp.o(x$fpl$usenofp)
-    InputPortMsgA                            0x000014d8   Data          40  texas.o(.constdata)
-    OutputPortMsgA                           0x00001500   Data          40  texas.o(.constdata)
-    InputPortMsgB                            0x00001528   Data          40  texas.o(.constdata)
-    OutputPortMsgB                           0x00001550   Data          40  texas.o(.constdata)
-    InputPortMsgE                            0x00001578   Data          40  texas.o(.constdata)
-    OutputPortMsgE                           0x000015a0   Data          40  texas.o(.constdata)
-    BlankMsg                                 0x000015c8   Data          40  texas.o(.constdata)
-    InitializedMsg                           0x000015f0   Data          40  texas.o(.constdata)
-    IntroMsg                                 0x00001618   Data          40  texas.o(.constdata)
-    DoneMsg                                  0x00001640   Data          40  texas.o(.constdata)
-    TestMsg                                  0x00001668   Data          40  texas.o(.constdata)
-    LabTest                                  0x00001690   Data        6608  texas.o(.constdata)
-    BgTest                                   0x00003060   Data         160  texas.o(.constdata)
-    Key                                      0x00003100   Data           8  texas.o(.constdata)
-    Scramble                                 0x00003108   Data          32  texas.o(.constdata)
-    DeScramble                               0x00003128   Data          32  texas.o(.constdata)
-    Region$$Table$$Base                      0x00003148   Number         0  anon$$obj.o(Region$$Table)
-    Region$$Table$$Limit                     0x00003168   Number         0  anon$$obj.o(Region$$Table)
+    main                                     0x00001275   Thumb Code   122  tuningfork.o(i.main)
+    __fpl_dcmp_Inf                           0x0000130d   Thumb Code    24  dcmpi.o(x$fpl$dcmpinf)
+    __aeabi_ui2d                             0x00001325   Thumb Code     0  dflt_clz.o(x$fpl$dfltu)
+    _dfltu                                   0x00001325   Thumb Code    38  dflt_clz.o(x$fpl$dfltu)
+    __aeabi_cdcmple                          0x0000134d   Thumb Code     0  dleqf.o(x$fpl$dleqf)
+    _dcmple                                  0x0000134d   Thumb Code   120  dleqf.o(x$fpl$dleqf)
+    __fpl_dcmple_InfNaN                      0x000013af   Thumb Code     0  dleqf.o(x$fpl$dleqf)
+    __fpl_dnaninf                            0x000013c5   Thumb Code   156  dnaninf.o(x$fpl$dnaninf)
+    __aeabi_cdrcmple                         0x00001461   Thumb Code     0  drleqf.o(x$fpl$drleqf)
+    _drcmple                                 0x00001461   Thumb Code   108  drleqf.o(x$fpl$drleqf)
+    Port                                     0x000014cc   Data          24  texas.o(.constdata)
+    __I$use$fp                               0x000014cc   Number         0  usenofp.o(x$fpl$usenofp)
+    InputPortMsgA                            0x000014e4   Data          40  texas.o(.constdata)
+    OutputPortMsgA                           0x0000150c   Data          40  texas.o(.constdata)
+    InputPortMsgB                            0x00001534   Data          40  texas.o(.constdata)
+    OutputPortMsgB                           0x0000155c   Data          40  texas.o(.constdata)
+    InputPortMsgE                            0x00001584   Data          40  texas.o(.constdata)
+    OutputPortMsgE                           0x000015ac   Data          40  texas.o(.constdata)
+    BlankMsg                                 0x000015d4   Data          40  texas.o(.constdata)
+    InitializedMsg                           0x000015fc   Data          40  texas.o(.constdata)
+    IntroMsg                                 0x00001624   Data          40  texas.o(.constdata)
+    DoneMsg                                  0x0000164c   Data          40  texas.o(.constdata)
+    TestMsg                                  0x00001674   Data          40  texas.o(.constdata)
+    LabTest                                  0x0000169c   Data        6608  texas.o(.constdata)
+    BgTest                                   0x0000306c   Data         160  texas.o(.constdata)
+    Key                                      0x0000310c   Data           8  texas.o(.constdata)
+    Scramble                                 0x00003114   Data          32  texas.o(.constdata)
+    DeScramble                               0x00003134   Data          32  texas.o(.constdata)
+    Region$$Table$$Base                      0x00003154   Number         0  anon$$obj.o(Region$$Table)
+    Region$$Table$$Limit                     0x00003174   Number         0  anon$$obj.o(Region$$Table)
     Counts                                   0x20000000   Data           4  tuningfork.o(.data)
     InPort                                   0x20000004   Data           4  texas.o(.data)
     OutPort                                  0x20000008   Data           4  texas.o(.data)
@@ -639,9 +640,9 @@ Memory Map of the image
 
   Image Entry point : 0x0000026d
 
-  Load Region LR_1 (Base: 0x00000000, Size: 0x000031b8, Max: 0xffffffff, ABSOLUTE)
+  Load Region LR_1 (Base: 0x00000000, Size: 0x000031c4, Max: 0xffffffff, ABSOLUTE)
 
-    Execution Region ER_RO (Base: 0x00000000, Size: 0x00003168, Max: 0xffffffff, ABSOLUTE)
+    Execution Region ER_RO (Base: 0x00000000, Size: 0x00003174, Max: 0xffffffff, ABSOLUTE)
 
     Base Addr    Size         Type   Attr      Idx    E Section Name        Object
 
@@ -720,16 +721,16 @@ Memory Map of the image
     0x00000bac   0x00000020   Code   RO           70    i.Timer4A_Handler   texas.o
     0x00000bcc   0x00000610   Code   RO           71    i.Timer5A_Handler   texas.o
     0x000011dc   0x00000098   Code   RO           74    i.UART_Init         texas.o
-    0x00001274   0x0000008c   Code   RO           15    i.main              tuningfork.o
-    0x00001300   0x00000018   Code   RO          247    x$fpl$dcmpinf       fz_ws.l(dcmpi.o)
-    0x00001318   0x00000026   Code   RO          236    x$fpl$dfltu         fz_ws.l(dflt_clz.o)
-    0x0000133e   0x00000002   PAD
-    0x00001340   0x00000078   Code   RO          242    x$fpl$dleqf         fz_ws.l(dleqf.o)
-    0x000013b8   0x0000009c   Code   RO          249    x$fpl$dnaninf       fz_ws.l(dnaninf.o)
-    0x00001454   0x0000006c   Code   RO          244    x$fpl$drleqf        fz_ws.l(drleqf.o)
-    0x000014c0   0x00000000   Code   RO          251    x$fpl$usenofp       fz_ws.l(usenofp.o)
-    0x000014c0   0x00001c88   Data   RO           79    .constdata          texas.o
-    0x00003148   0x00000020   Data   RO          401    Region$$Table       anon$$obj.o
+    0x00001274   0x00000098   Code   RO           15    i.main              tuningfork.o
+    0x0000130c   0x00000018   Code   RO          247    x$fpl$dcmpinf       fz_ws.l(dcmpi.o)
+    0x00001324   0x00000026   Code   RO          236    x$fpl$dfltu         fz_ws.l(dflt_clz.o)
+    0x0000134a   0x00000002   PAD
+    0x0000134c   0x00000078   Code   RO          242    x$fpl$dleqf         fz_ws.l(dleqf.o)
+    0x000013c4   0x0000009c   Code   RO          249    x$fpl$dnaninf       fz_ws.l(dnaninf.o)
+    0x00001460   0x0000006c   Code   RO          244    x$fpl$drleqf        fz_ws.l(drleqf.o)
+    0x000014cc   0x00000000   Code   RO          251    x$fpl$usenofp       fz_ws.l(usenofp.o)
+    0x000014cc   0x00001c88   Data   RO           79    .constdata          texas.o
+    0x00003154   0x00000020   Data   RO          401    Region$$Table       anon$$obj.o
 
 
     Execution Region ER_RW (Base: 0x20000000, Size: 0x00000050, Max: 0xffffffff, ABSOLUTE)
@@ -760,10 +761,10 @@ Image component sizes
 
        692        632          0          0       1024        908   startup.o
       3716        550       7304         76        628      23288   texas.o
-       182         38          0          4          0       2771   tuningfork.o
+       194         40          0          4          0       2779   tuningfork.o
 
     ----------------------------------------------------------------------
-      4592       1220       7336         80       1652      26967   Object Totals
+      4604       1222       7336         80       1652      26975   Object Totals
          0          0         32          0          0          0   (incl. Generated)
          2          0          0          0          0          0   (incl. Padding)
 
@@ -819,15 +820,15 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-      5312       1244       7336         80       1752      26539   Grand Totals
-      5312       1244       7336         80       1752      26539   ELF Image Totals
-      5312       1244       7336         80          0          0   ROM Totals
+      5324       1246       7336         80       1752      26547   Grand Totals
+      5324       1246       7336         80       1752      26547   ELF Image Totals
+      5324       1246       7336         80          0          0   ROM Totals
 
 ==============================================================================
 
-    Total RO  Size (Code + RO Data)                12648 (  12.35kB)
+    Total RO  Size (Code + RO Data)                12660 (  12.36kB)
     Total RW  Size (RW Data + ZI Data)              1832 (   1.79kB)
-    Total ROM Size (Code + RO Data + RW Data)      12728 (  12.43kB)
+    Total ROM Size (Code + RO Data + RW Data)      12740 (  12.44kB)
 
 ==============================================================================
 
