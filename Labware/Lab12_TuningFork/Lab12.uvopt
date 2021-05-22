@@ -132,7 +132,7 @@ HN_Úàó6</Name>
         <SetRegEntry>
           <Number>0</Number>
           <Key>DLGDARM</Key>
-          <Name>(1010=-1,-1,-1,-1,0)(1007=-1,-1,-1,-1,0)(1008=-1,-1,-1,-1,0)(1009=-1,-1,-1,-1,0)(1012=-1,-1,-1,-1,0)(3006=1204,367,1600,633,1)(3004=1204,378,1600,657,0)</Name>
+          <Name>(1010=-1,-1,-1,-1,0)(1007=-1,-1,-1,-1,0)(1008=90,121,456,347,0)(1009=-1,-1,-1,-1,0)(1012=-1,-1,-1,-1,0)(3006=2615,422,3011,688,0)(3004=2588,396,2984,675,0)</Name>
         </SetRegEntry>
         <SetRegEntry>
           <Number>0</Number>
@@ -166,6 +166,16 @@ HN_Úàó6</Name>
           <count>1</count>
           <WinNumber>1</WinNumber>
           <ItemText>beep</ItemText>
+        </Ww>
+        <Ww>
+          <count>2</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>SW1</ItemText>
+        </Ww>
+        <Ww>
+          <count>3</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>GPIO_PORTA_RIS_R</ItemText>
         </Ww>
       </WatchWindow1>
       <MemoryWindow1>
@@ -241,7 +251,7 @@ HN_Úàó6</Name>
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>275</TopLine>
+      <TopLine>270</TopLine>
       <CurrentLine>277</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\startup.s</PathWithFileName>
@@ -257,8 +267,8 @@ HN_Úàó6</Name>
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>80</TopLine>
-      <CurrentLine>132</CurrentLine>
+      <TopLine>71</TopLine>
+      <CurrentLine>187</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\TuningFork.c</PathWithFileName>
       <FilenameWithoutPath>TuningFork.c</FilenameWithoutPath>
