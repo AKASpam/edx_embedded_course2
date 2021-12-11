@@ -43,9 +43,9 @@ void EnableInterrupts(void);  // Enable interrupts
 void WaitForInterrupt(void);  // low power mode
 //void switch_init(void);
 unsigned long delay=0;
-int beep=0; //variable for beep
-int SW1=0; //switch 1 pressed
-int old=0; //old switch status
+unsigned long beep=0; //variable for beep
+unsigned long SW1=0; //switch 1 pressed
+unsigned long old=0; //old switch status
 unsigned long edgecounter=0;
 unsigned long Hurtz=0;
 volatile unsigned long Counts=0; 
@@ -77,13 +77,35 @@ void Sound_Init(void){
 	GPIO_PORTA_IS_R &= ~0x08;     // (d) PA3 is edge-sensitive
 	GPIO_PORTA_IBE_R &= ~0x08;    //     PF4 is not both edges
   GPIO_PORTA_IEV_R &= ~0x08;    //     PA3 rising edge event 
-	//GPIO_PORTA_ICR_R = 0x08;    //    set flag to 0 -DEACTIVATE real board grading
-	//GPIO_PORTA_IM_R |= 0x08;      // (f) arm interrupt on P  DEACTIVATE real board grading
+	GPIO_PORTA_ICR_R = 0x08;    //    set flag to 0
+	GPIO_PORTA_IM_R |= 0x08;      // (f) arm interrupt on P  
   NVIC_PRI0_R = (NVIC_PRI0_R&0xFFFFFF00)|0x00000020; // (g) priority 2 00400000 0x41C 4000 00E0
 	NVIC_EN0_R = 0x00000001;      // (h) enable interrupt 0 in NVIC (bit 0)
 	//EnableInterrupts();           // (i) Enable global Interrupt flag (I)
 
 }
+
+void GPIO_PortA_Handler(void){ //do something with PA3 input 0x1000 0x08
+	GPIO_PORTA_ICR_R=0x08; //acknowledge flag 
+	edgecounter = edgecounter+1;
+	
+	
+	if(GPIO_PORTA_DATA_R&0x08){  // SW2 touch GPIO_PORTA_RIS_R
+	
+	edgecounter = edgecounter+1;
+	SW1=1;
+	//if(GPIO_PORTA_RIS_R&0xFF){
+	beep=!beep;
+	
+	}	
+	edgecounter = edgecounter+1;
+}
+
+	
+	
+	
+
+
 void SysTick_Init(unsigned long period){ // priority 2
   NVIC_ST_CTRL_R = 0;         // disable SysTick during setup
   NVIC_ST_RELOAD_R = period-1;// reload value
@@ -93,29 +115,55 @@ void SysTick_Init(unsigned long period){ // priority 2
   // finish all initializations and then enable interrupts
 }
 
+
+/* unlock if port F for debug
+void PortF_init(void){
+SYSCTL_RCGC2_R |= 0x00000020; // (a) activate clock for port F
+  Hurtz = 0;             // (b) initialize count and wait for clock
+  GPIO_PORTF_DIR_R &= ~0x10;    // (c) make PF4 in (built-in button)
+  GPIO_PORTF_AFSEL_R &= ~0x10;  //     disable alt funct on PF4
+  GPIO_PORTF_DEN_R |= 0x10;     //     enable digital I/O on PF4
+  GPIO_PORTF_PCTL_R &= ~0x000F0000; //  configure PF4 as GPIO
+  GPIO_PORTF_AMSEL_R &= ~0x10;  //    disable analog functionality on PF4
+  GPIO_PORTF_PUR_R |= 0x10;     //     enable weak pull-up on PF4
+  GPIO_PORTF_IS_R &= ~0x10;     // (d) PF4 is edge-sensitive
+  GPIO_PORTF_IBE_R &= ~0x10;    //     PF4 is not both edges
+  GPIO_PORTF_IEV_R &= ~0x10;    //     PF4 falling edge event
+  GPIO_PORTF_ICR_R = 0x10;      // (e) clear flag4
+  GPIO_PORTF_IM_R |= 0x10;      // (f) arm interrupt on PF4
+  NVIC_PRI7_R = (NVIC_PRI7_R&0xFF00FFFF)|0x00A00000; // (g) priority 5
+  NVIC_EN0_R = 0x40000000;      // (h) enable interrupt 30 in NVIC
+  EnableInterrupts();           // (i) Enable global Interrupt flag (I)
+	
+	
+}
+
+void GPIO_PortF_Handler(void){
+	GPIO_PORTF_ICR_R = 0x10;      // acknowledge flag4
+  Hurtz = Hurtz + 1;
+}
+*/ //port F outcommented
+
+
+
 // called at 880 Hz
 void SysTick_Handler(void){
 	
-
-SW1=GPIO_PORTA_DATA_R & 0x08; //switch status read
 	
-//prev_val=GPIO_PORTADATA_R&0x08; //storing the value of input received in prev_val
-if(SW1 && !old){
-beep = !beep;
-	//old=SW1;
+	SW1=GPIO_PORTA_DATA_R&0x08;
+	if (SW1==1){
+		beep=1;
+	}
+	
+	//beep=1;
+	while(beep){
+	GPIO_PORTA_DATA_R ^= 0x04;       // toggle PA2
+		//beep=!beep;
 	Hurtz = Hurtz + 1;
-}
-//else{
-	//beep=0;
-//}
-
-if(beep){
-GPIO_PORTA_DATA_R ^= 0x04; //toggle PA2
-}
-else{
-GPIO_PORTA_DATA_R &= ~0x04;       // mute PA2
-}
-old=SW1;
+	} 
+	
+	GPIO_PORTA_DATA_R &= ~0x04;       // mute PA2
+		
   }
 
 int main(void){// activate grader and set system clock to 80 MHz
@@ -126,13 +174,14 @@ int main(void){// activate grader and set system clock to 80 MHz
 	//PortF_init();
 	EnableInterrupts();   // enable after all initialization are done
 	beep=0;
-	old=0;
 
 
 
   while(1){
     // main program is free to perform other tasks
     // do not use WaitForInterrupt() here, it may cause the TExaS to crash
+//WaitForInterrupt();
+//	SW1=GPIO_PORTA_DATA_R&0x08; //write switch 1 to SW1	
 						
 }
 }
